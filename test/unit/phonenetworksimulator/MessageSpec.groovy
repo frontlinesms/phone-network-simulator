@@ -1,4 +1,4 @@
-package phone.network.simulator
+package phonenetworksimulator
 
 import grails.test.mixin.TestFor
 import spock.lang.*

@@ -1,4 +1,4 @@
-package phone.network.simulator
+package phonenetworksimulator
 
 class Message {
 	String to
