@@ -1,7 +1,10 @@
 package phonenetworksimulator
 
 class MessagingDevice {
-
-    static constraints = {
-    }
+	String phoneNumber
+	
+	static hasMany = [messages: Message]
+	
+	static constraints = {
+	}
 }

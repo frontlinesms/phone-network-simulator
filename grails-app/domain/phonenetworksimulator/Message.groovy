@@ -5,6 +5,10 @@ class Message {
 	String from
 	String text
 	Boolean read
-    static constraints = {
-    }
+	
+	static belongsTo = [messagingDevice: MessagingDevice]
+	static constraints = {
+	}
+
+	
 }
