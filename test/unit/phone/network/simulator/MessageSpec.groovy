@@ -21,6 +21,5 @@ class MessageSpec extends Specification {
 			true  | ""             | "+254723896336"    | "i love this day" | true
 			true  | ""             | "+254723896336"    | ""                | true
 			true  | "+254723896336"| ""                 | ""                | true
-			true  | ""| ""                 | ""                | true
 	}
 }
