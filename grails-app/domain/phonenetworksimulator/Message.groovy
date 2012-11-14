@@ -1,14 +1,22 @@
 package phonenetworksimulator
 
 class Message {
-	String to
-	String from
+
+static constraints={
+    recepient(blank:false)
+    source(blank:false)
+    text(blank:false)
+    isRead()
+	}
+	String recepient
+	String source
 	String text
-	Boolean read
+	Boolean isRead
 	
 	static belongsTo = [messagingDevice: MessagingDevice]
-	static constraints = {
-	}
-
+    String toString(){
+    return "${recepient}"    
+    }	
+  
 	
 }
