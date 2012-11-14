@@ -2,6 +2,7 @@
 <!doctype html>
 <html>
 	<head>
+ <link rel="stylesheet" href="\${resource(dir: 'css', file: 'scaffold.css')}"/>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'message.label', default: 'Message')}" />
 		<title><g:message code="default.edit.label" args="[entityName]" /></title>

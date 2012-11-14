@@ -2,7 +2,7 @@
 <%@ page import="phonenetworksimulator.Message" %>
 <!doctype html>
 <html>
-	<head>
+	<head> <link rel="stylesheet" href="\${resource(dir: 'css', file: 'scaffold.css')}"/>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'message.label', default: 'Message')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
@@ -33,8 +33,9 @@
 						<g:sortableColumn property="source" title="${message(code: 'message.source.label', default: 'Source')}" />
 					
 						<g:sortableColumn property="text" title="${message(code: 'message.text.label', default: 'Text')}" />
-					
+					    
 					</tr>
+					
 				</thead>
 				<tbody>
 				<g:each in="${messageInstanceList}" status="i" var="messageInstance">
@@ -54,8 +55,11 @@
 				</g:each>
 				</tbody>
 			</table>
+			<table>
+			<tr>
+			
 			<div class="pagination">
-				<g:paginate total="${messageInstanceTotal}" />
+				<!--g:paginate total="${messageInstanceTotal}" /-->
 			</div>
 		</div>
 	</body>

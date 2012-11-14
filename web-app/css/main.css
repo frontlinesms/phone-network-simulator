@@ -521,6 +521,15 @@ th:hover, tr:hover {
 
 /* ACTION BUTTONS */
 
+.custombuttons input.send {
+  display:inline-block;
+  padding:5px;
+  border:1px #D7D7D7 solid;
+  text-align:center;
+  text-decoration:none;
+  color:#666666;          
+  
+}
 .buttons {
 	background-color: #efefef;
 	overflow: hidden;
@@ -606,3 +615,4 @@ color: #fff;
 font-size: 1.25em;
 font-style: italic;
 }
+ 
