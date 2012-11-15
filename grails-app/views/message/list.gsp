@@ -23,11 +23,6 @@
 			<table>
 				<thead>
 					<tr>
-					
-						<g:sortableColumn property="isRead" title="${message(code: 'message.isRead.label', default: 'Is Read')}" />
-					
-						<th><g:message code="message.messagingDevice.label" default="Messaging Device" /></th>
-					
 						<g:sortableColumn property="recepient" title="${message(code: 'message.recepient.label', default: 'Recepient')}" />
 					
 						<g:sortableColumn property="source" title="${message(code: 'message.source.label', default: 'Source')}" />
@@ -40,11 +35,6 @@
 				<tbody>
 				<g:each in="${messageInstanceList}" status="i" var="messageInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-					
-						<td><g:link action="show" id="${messageInstance.id}">${fieldValue(bean: messageInstance, field: "isRead")}</g:link></td>
-					
-						<td>${fieldValue(bean: messageInstance, field: "messagingDevice")}</td>
-					
 						<td>${fieldValue(bean: messageInstance, field: "recepient")}</td>
 					
 						<td>${fieldValue(bean: messageInstance, field: "source")}</td>
