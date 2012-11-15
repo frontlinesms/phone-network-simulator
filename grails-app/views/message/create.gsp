@@ -2,6 +2,7 @@
 <!doctype html>
 <html>
 	<head>
+ <link rel="stylesheet" href="\${resource(dir: 'css', file: 'scaffold.css')}"/>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'message.label', default: 'Message')}" />
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
@@ -31,9 +32,14 @@
 					<g:render template="form"/>
 				</fieldset>
 				<fieldset class="buttons">
-					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+					<!--g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Send')}" /-->
+					<g:submitButton name= "send" class="send"         value="${message(code: 'default.button.send.label', default: 'Send')}" />
+					
+					</tr> 
 				</fieldset>
-			</g:form>
+				
+			</g:form><center>
+			
 		</div>
 	</body>
 </html>

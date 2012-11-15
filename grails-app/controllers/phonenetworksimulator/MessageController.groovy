@@ -5,7 +5,14 @@ import org.springframework.dao.DataIntegrityViolationException
 class MessageController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
-
+    
+    def send(){
+    //source:[params.source]
+    //text:[params.text]
+    //redirect(action:"send", params: params)
+    render(view : "list")
+    
+    }
     def index() {
         redirect(action: "list", params: params)
     }
