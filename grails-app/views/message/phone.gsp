@@ -8,7 +8,11 @@
 	</head>
 	<body>
 		<div><h3>My Phone</h3></div>
-		<g:render template="/message/myphonenumbers"/>
-		<g:render template="/message/myphone"/>
+		<table>
+			<tr>
+				<td><g:render template="/message/myphonenumbers"/></td>
+				<td><g:render template="/message/myphone"/></td>		
+			</tr>		
+		</table>
 	</body>
 </html>

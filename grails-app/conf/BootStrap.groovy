@@ -13,12 +13,11 @@ class BootStrap {
     if(device.hasErrors()){
     println device.errors
     }
-   def number = new Message(
+    def number = new Message(
    
     recepient:"+254723456789",
     source:"+254723345678",
-    text:"My first Message",
-    isRead: "true")
+    text:"My first Message")
     
     device.addToMessages(number)
     

@@ -7,11 +7,12 @@ class MessageController {
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
     
     def send(){
-    //source:[params.source]
-    //text:[params.text]
-    //redirect(action:"send", params: params)
-    render(view : "list")
-    
+	def messageInstance = new Message(params)
+        if (messageInstance.save(flush: true, failOnError:true)) {
+		render view:'/message/phone', model:[myPhoneNumber:params.source, section:'sent' , sentMessages:Message.findAllBySource																																																																																																																																																																									(params.source), allNumbers:allNumbers()]
+        } else {
+		render text:'failed'
+	}    
     }
     def index() {
         redirect(action: "list", params: params)
@@ -28,22 +29,11 @@ class MessageController {
 
     def phone(){
 	if(params.myPhoneNumber){
-		return [myPhoneNumber:params.myPhoneNumber, section:params.section ,inboxMessages:Message.findAllByRecepient(params.myPhoneNumber), sentMessages:Message.findAllBySource																																																																																																																																																																									(params.myPhoneNumber)]
+		return [myPhoneNumber:params.myPhoneNumber, section:params.section ,inboxMessages:Message.findAllByRecepient(params.myPhoneNumber), sentMessages:Message.findAllBySource																																																																																																																																																																									(params.myPhoneNumber), allNumbers:allNumbers()]
 	} else {
-		return [myPhoneNumber:params.myPhoneNumber]		
+		return [myPhoneNumber:params.myPhoneNumber, allNumbers:allNumbers()]		
 	}
     }																												
-
-    def save() {
-        def messageInstance = new Message(params)
-        if (!messageInstance.save(flush: true)) {
-            render(view: "create", model: [messageInstance: messageInstance])
-            return
-        }
-
-		flash.message = message(code: 'default.created.message', args: [message(code: 'message.label', default: 'Message'), messageInstance.id])
-        redirect(action: "show", id: messageInstance.id)
-    }
 
     def show() {
         def messageInstance = Message.get(params.id)
@@ -66,6 +56,10 @@ class MessageController {
 
         [messageInstance: messageInstance]
     }
+
+	private def allNumbers(){
+		return (Message.findAll()*.source + Message.findAll()*.recepient).unique()	
+	}
 
     def update() {
         def messageInstance = Message.get(params.id)
