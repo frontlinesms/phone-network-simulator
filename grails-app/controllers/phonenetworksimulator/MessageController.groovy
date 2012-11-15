@@ -19,6 +19,14 @@ class MessageController {
         [messageInstance: new Message(params)]
     }
 
+    def phone(){
+	if(params.myPhoneNumber){
+		return [myPhoneNumber:params.myPhoneNumber, section:params.section ,inboxMessages:Message.findAllByRecepient(params.myPhoneNumber), sentMessages:Message.findAllBySource																																																																																																																																																																									(params.myPhoneNumber)]
+	} else {
+		return [myPhoneNumber:params.myPhoneNumber]		
+	}
+    }																												
+
     def save() {
         def messageInstance = new Message(params)
         if (!messageInstance.save(flush: true)) {
