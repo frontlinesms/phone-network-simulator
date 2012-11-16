@@ -7,6 +7,10 @@ class Message {
 		text(blank:false)
 	}
 
+	static mapping = {
+		version false
+	}
+
 	String recepient
 	String source
 	String text
