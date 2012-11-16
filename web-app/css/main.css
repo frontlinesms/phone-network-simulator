@@ -615,4 +615,9 @@ color: #fff;
 font-size: 1.25em;
 font-style: italic;
 }
+
+.chosen{
+	background-color:black;
+	padding:5px;
+}
  
