@@ -521,6 +521,15 @@ th:hover, tr:hover {
 
 /* ACTION BUTTONS */
 
+.custombuttons input.send {
+  display:inline-block;
+  padding:5px;
+  border:1px #D7D7D7 solid;
+  text-align:center;
+  text-decoration:none;
+  color:#666666;          
+  
+}
 .buttons {
 	background-color: #efefef;
 	overflow: hidden;
@@ -589,3 +598,21 @@ a.skip {
 	position: absolute;
 	left: -9999px;
 }
+
+/* Network Simulator*/
+#header {
+background: #48802c;
+padding: 2em 1em 2em 1em;
+margin-bottom: 1em;
+}
+a.header-main:link, a.header-main:visited {
+color: #fff;
+font-size: 3em;
+font-weight: bold;
+}
+.header-sub {
+color: #fff;
+font-size: 1.25em;
+font-style: italic;
+}
+ 

@@ -1,10 +1,18 @@
 package phonenetworksimulator
 
 class Message {
-	String to
-	String from
+	static constraints={
+		recepient(blank:false)
+		source(blank:false)
+		text(blank:false)
+	}
+
+	static mapping = {
+		version false
+	}
+
+	String recepient
+	String source
 	String text
-	Boolean read
-    static constraints = {
-    }
+	
 }
