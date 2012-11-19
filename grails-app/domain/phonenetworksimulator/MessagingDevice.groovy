@@ -9,8 +9,5 @@ class MessagingDevice {
 	
 	
 	static hasMany = [messages: Message]
-	String toString(){
-	return "${phoneNumber}"
-	}
-	
+		
 }

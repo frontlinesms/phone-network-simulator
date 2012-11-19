@@ -9,6 +9,7 @@ import spock.lang.*
  */
 @TestFor(MessageController)
 @Mock(Message)
+
 class MessageControllerSpec extends Specification{
 	
 	def "index action redirects to the message list"() {
@@ -42,6 +43,8 @@ class MessageControllerSpec extends Specification{
 			model.sentMessages.size() == 3
 			model.myPhoneNumber == "456789"
 	}
+
+   
     
 	def "deleting a message actually removes the message from the database"() {
 		setup:
@@ -57,4 +60,5 @@ class MessageControllerSpec extends Specification{
 			  
 
 }
+      
 }

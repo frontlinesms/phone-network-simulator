@@ -9,7 +9,7 @@ import spock.lang.*
 @TestFor(MessagingDevice)
 @Mock(Message)
 class MessagingDeviceSpec extends Specification {
-	def "Testing Relation" (){
+	def "Testing Relation of messaging device with messages" (){
 	  when:
 		def msgDev = new MessagingDevice(phoneNumber:"+254123232").save()
 		def msg = new Message(recepient:"+25412121",source:+23232323,text:"My text",isRead:true)
@@ -18,5 +18,4 @@ class MessagingDeviceSpec extends Specification {
 	  then:
 		msgDev.count() == 1
 	}
-
 }
