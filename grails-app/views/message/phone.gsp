@@ -11,7 +11,8 @@
 		<table>
 			<tr>
 				<td><g:render template="/message/myphonenumbers"/></td>
-				<td><g:render template="/message/myphone"/></td>		
+				<td><g:render template="/message/myphone"/>
+</td>		
 			</tr>		
 		</table>
 	</body>

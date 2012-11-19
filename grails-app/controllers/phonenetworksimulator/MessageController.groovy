@@ -91,23 +91,24 @@ class MessageController {
 		flash.message = message(code: 'default.updated.message', args: [message(code: 'message.label', default: 'Message'), messageInstance.id])
 		redirect(action: "show", id: messageInstance.id)
 	}
+    
 
 	def delete() {
 		def messageInstance = Message.get(params.id)
 		if (!messageInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [message(code: 'message.label', default: 'Message'), params.id])
-			redirect(action: "list")
+			redirect(action: "phone")
 			return
 		}
 
 		try {
 			messageInstance.delete(flush: true)
 			flash.message = message(code: 'default.deleted.message', args: [message(code: 'message.label', default: 'Message'), params.id])
-			redirect(action: "list")
+			redirect(action: "phone", params:[myPhoneNumber:params.myPhoneNumber])
 		}
 		catch (DataIntegrityViolationException e) {
 			flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'message.label', default: 'Message'), params.id])
-			redirect(action: "show", id: params.id)
+			redirect(action: "phone", params:[myPhoneNumber:params.myPhoneNumber])
 		}
 	}
 }

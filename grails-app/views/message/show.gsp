@@ -23,15 +23,7 @@
 			</g:if>
 			<ol class="property-list message">
 			
-				<g:if test="${messageInstance?.isRead}">
-				<li class="fieldcontain">
-					<span id="isRead-label" class="property-label"><g:message code="message.isRead.label" default="Is Read" /></span>
-					
-						<span class="property-value" aria-labelledby="isRead-label"><g:formatBoolean boolean="${messageInstance?.isRead}" /></span>
-					
-				</li>
-				</g:if>
-			
+						
 				<g:if test="${messageInstance?.messagingDevice}">
 				<li class="fieldcontain">
 					<span id="messagingDevice-label" class="property-label"><g:message code="message.messagingDevice.label" default="Messaging Device" /></span>
