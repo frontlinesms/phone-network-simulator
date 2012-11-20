@@ -1,6 +1,6 @@
 <div id="myphone">
-	<g:if test="${myPhoneNumber}">
-		My number is : ${myPhoneNumber}
+	<g:if test="${phoneNumber}">
+		My number is : ${phoneNumber}
 		<g:render template="/message/tabs"/>
 		<g:if test="${section == 'sent'}">
 			<g:render template="/message/sent"/>	

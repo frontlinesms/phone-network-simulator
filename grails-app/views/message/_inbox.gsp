@@ -1,5 +1,5 @@
 <h3>Inbox</h3>
-<g:form params="[myPhoneNumber:myPhoneNumber]">
+<g:form params="[phoneNumber:phoneNumber]">
 <g:if test="${inboxMessages}">
 	<g:each in='${inboxMessages}' var="message">
 		<div><g:checkBox name="id" value="${message.id}" checked="false" />Sent from : ${message.source} # ${message.text}</div>

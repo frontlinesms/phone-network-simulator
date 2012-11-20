@@ -7,7 +7,7 @@ class PhoneController {
 		def phoneInstance = new Phone(params)
 		println "params are $params"
 		 if (phoneInstance.save(flush: true,failOnError:true)) {
-            redirect(controller:'message', action:'phone', params:[myPhoneNumber:params.myPhoneNumber])
+            redirect(controller:'message', action:'phone', params:[phoneNumber:params.phoneNumber])
         }
         else{
              render text: 'Failed to save'    

@@ -13,24 +13,35 @@ class MessageController {
 	def send() {
 		def messageInstance = new Message(params)
 		if (messageInstance.save(flush: true, failOnError:true)) {
-		} else {render view:'/message/phone', model:[myPhoneNumber:params.source, section:'sent' , sentMessages:Message.findAllBySource	(params.source), allNumbers:allNumbers()]
-
+			render view:'/message/phone', model:[phoneNumber:params.source, section:'sent' , sentMessages:Message.findAllBySource	(params.source), allNumbers:allNumbers()]
+		} else {
 			render text:'failed'
 		}    
 	}
+	
+	def list() {
+        params.max = Math.min(params.max ? params.int('max') : 10, 100)
+        [messagingDeviceInstanceList: MessagingDevice.list(params), messagingDeviceInstanceTotal: MessagingDevice.count()]
+    }
 
 	def phone(){
-		if(params.myPhoneNumber) {
-			def phone = Phone.findByPhoneNumber(params.myPhoneNumber)
-			return [myPhoneNumber:phone.phoneNumber, section:params.section ,inboxMessages:phone.inboxMessages, sentMessages:phone.sentMessages, allNumbers:allNumbers()]
+		if(params.phoneNumber) {
+			def phone = MessagingDevice.findByPhoneNumber(params.phoneNumber)
+			return [phoneNumber:phone.phoneNumber, section:params.section ,inboxMessages:phone.inboxMessages, sentMessages:phone.sentMessages, allNumbers:allNumbers()]
 		} else {
-			return [myPhoneNumber:Phone.find().phoneNumber, allNumbers:allNumbers()]		
+			return [phoneNumber:MessagingDevice.list()[0].phoneNumber, allNumbers:allNumbers()]		
 		}
 	}																												
 
 	private def allNumbers(){
-		return MessagingDevice.findAll()*.phoneNumber
-	}    
+		return MessagingDevice.findAll()*.phoneNumber 
+	}  
+	
+	private def newNumbers(){
+      	def message = Message.findOrSaveWhere(params.recepient)
+      	return message
+      	
+	}
 
 	def delete() {
 		def messageInstance = Message.get(params.id)
@@ -43,11 +54,11 @@ class MessageController {
 		try {
 			messageInstance.delete(flush: true)
 			flash.message = message(code: 'default.deleted.message', args: [message(code: 'message.label', default: 'Message'), params.id])
-			redirect(action: "phone", params:[myPhoneNumber:params.myPhoneNumber])
+			redirect(action: "phone", params:[phoneNumber:params.phoneNumber])
 		}
 		catch (DataIntegrityViolationException e) {
 			flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'message.label', default: 'Message'), params.id])
-			redirect(action: "phone", params:[myPhoneNumber:params.myPhoneNumber])
+			redirect(action: "phone", params:[phoneNumber:params.phoneNumber])
 		}
 	}
 }
