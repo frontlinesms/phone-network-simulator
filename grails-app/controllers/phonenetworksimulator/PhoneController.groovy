@@ -5,13 +5,13 @@ class PhoneController {
 	def save() {
 		//TODO implement me
 		def phoneInstance = new Phone(params)
-        if (!phoneInstance.save(flush: true)) {
-            render(view: "create", model: [phoneInstance: phoneInstance])
-            return
+		println "params are $params"
+		 if (phoneInstance.save(flush: true,failOnError:true)) {
+            redirect(controller:'message', action:'phone', params:[myPhoneNumber:params.myPhoneNumber])
+        }
+        else{
+             render text: 'Failed to save'    
         }
 
-		flash.message = message(code: 'default.created.message', args: [message(code: 'messagingDevice.label', default: 'Phone'), phoneInstance.id])
-        redirect(action: "show", id: phoneInstance.id)
-    }
-
+}
 }

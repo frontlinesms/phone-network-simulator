@@ -9,4 +9,8 @@
 			<g:link controller="message" action="phone" params="${[myPhoneNumber:number]}">${number}</g:link>
 		</div>	
 	</g:each>
+	<g:form controller="phone" action="save" >
+		<g:textField name="phoneNumber" value=""/>
+		<g:submitButton value="Add Phone" name="addButton"/>
+	</g:form>	
 </div>

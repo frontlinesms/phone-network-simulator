@@ -4,10 +4,15 @@ class MessagingDevice {
 	String phoneNumber
 	
 	static constraints = {
-	phoneNumber(blank:false)
+		phoneNumber(blank:false)
 	}
 	
+	def getInboxMessages() {
+		Message.findAllByRecepient(phoneNumber)
+	}
 	
-	static hasMany = [messages: Message]
+	def getSentMessages() {
+		Message.findAllBySource(phoneNumber)
+	}
 		
 }

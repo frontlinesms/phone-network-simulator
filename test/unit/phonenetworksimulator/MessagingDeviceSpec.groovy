@@ -11,11 +11,9 @@ import spock.lang.*
 class MessagingDeviceSpec extends Specification {
 	def "Testing Relation of messaging device with messages" (){
 	  when:
-		def msgDev = new MessagingDevice(phoneNumber:"+254123232").save()
-		def msg = new Message(recepient:"+25412121",source:+23232323,text:"My text",isRead:true)
-		msgDev.addToMessages(msg)
-		msgDev.save(flush:true)
+		def msgDev = new MessagingDevice(phoneNumber:"+254123232").save(failOnError:true)
+		def msg = new Message(recepient:"+25412121",source: "+254123232" ,text:"My text").save(failOnError:true)
 	  then:
-		msgDev.count() == 1
+		msgDev.sentMessages.size() == 1
 	}
 }
