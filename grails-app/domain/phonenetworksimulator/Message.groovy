@@ -1,10 +1,15 @@
 package phonenetworksimulator
 
 class Message {
+
 	static constraints={
 		recepient(blank:false)
 		source(blank:false)
 		text(blank:false)
+		def deleteSource = false
+		def deleteDestination = false
+		
+		
 	}
 
 	static mapping = {

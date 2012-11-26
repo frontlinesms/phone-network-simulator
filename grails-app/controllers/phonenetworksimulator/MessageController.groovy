@@ -11,14 +11,18 @@ class MessageController {
 	}
 	
 	def send() {
-		def messageInstance = new Message(params)
-		if (messageInstance.save(flush: true, failOnError:true)) {
-			render view:'/message/phone', model:[phoneNumber:params.source, section:'sent' , sentMessages:Message.findAllBySource	(params.source), allNumbers:allNumbers()]
-		} else {
-			render text:'failed'
-		}    
-	}
 	
+		def messageInstance = new Message(params)
+		
+		
+		//msgDev.addToMessages(message).save(failOnError:true)
+	 	messageInstance.save(flush: true, failOnError:true)
+
+		def phone = MessagingDevice.findByPhoneNumber(params.recepient) ?: new MessagingDevice(phoneNumber:params.recepient).save(failOnError:true)
+		//render view:'/message/phone', model:[phoneNumber:msgDev*.phoneNumber, inboxMessage:msgDev*.text , sentMessages:msgDev.sentMessages*.text, allNumbers:allNumbers()]
+		render view:'/message/phone', model:[phoneNumber:params.source, section:'sent',sentMessages:Message.findAllBySource(params.source), allNumbers:allNumbers()]
+	
+	}
 	def list() {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
         [messagingDeviceInstanceList: MessagingDevice.list(params), messagingDeviceInstanceTotal: MessagingDevice.count()]
@@ -34,14 +38,8 @@ class MessageController {
 	}																												
 
 	private def allNumbers(){
-		return MessagingDevice.findAll()*.phoneNumber 
-	}  
-	
-	private def newNumbers(){
-      	def message = Message.findOrSaveWhere(params.recepient)
-      	return message
-      	
-	}
+		return MessagingDevice.findAll()*.phoneNumber
+	}    
 
 	def delete() {
 		def messageInstance = Message.get(params.id)
