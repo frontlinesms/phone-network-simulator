@@ -14,12 +14,12 @@ class MessageController {
 	
 		def messageInstance = new Message(params)
 		
-		
-		//msgDev.addToMessages(message).save(failOnError:true)
 	 	messageInstance.save(flush: true, failOnError:true)
-
-		def phone = MessagingDevice.findByPhoneNumber(params.recepient) ?: new MessagingDevice(phoneNumber:params.recepient).save(failOnError:true)
-		//render view:'/message/phone', model:[phoneNumber:msgDev*.phoneNumber, inboxMessage:msgDev*.text , sentMessages:msgDev.sentMessages*.text, allNumbers:allNumbers()]
+		
+		[messageInstance.recepient, messageInstance.source].each {
+			def phone = MessagingDevice.findByPhoneNumber(it) ?: new MessagingDevice(phoneNumber:it).save(failOnError:true)
+			phone.addToMessages(messageInstance).save(failOnError:true)
+		}
 		render view:'/message/phone', model:[phoneNumber:params.source, section:'sent',sentMessages:Message.findAllBySource(params.source), allNumbers:allNumbers()]
 	
 	}
