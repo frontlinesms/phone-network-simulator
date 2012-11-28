@@ -1,19 +1,19 @@
 package phonenetworksimulator
+import phonenetworksimulator.*
 
 class MessagingDevice {
 	String phoneNumber
-	static hasMany = [messages: Message]
 	
 	static constraints = {
 		phoneNumber(blank:false)
 	}
-	
+	//Returns the Messages not Deleted in Inbox
 	def getInboxMessages() {
-		messages.findAll { it.recepient == this.phoneNumber}
+		Message.findAllByDeletedAtDestinationAndRecepient(false,this.phoneNumber)
 	}
-	
+	//Returns the Messages not deleted in OUTBOX
 	def getSentMessages() {
-		messages.findAll { it.source == this.phoneNumber}
+		Message.findAllByDeletedAtSourceAndSource(false, this.phoneNumber)
 	}
 		
 }

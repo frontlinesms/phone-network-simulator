@@ -10,7 +10,7 @@
 		</div>	
 	</g:each>
 	<g:form controller="phone" action="save" >
-		<g:textField name="phoneNumber" value = "${phoneInstance ?.phoneNumber}" />
+		<g:textField name="phoneNumber" value = "${phoneInstance?.phoneNumber}" />
 		<g:submitButton value="Add Phone" name="addButton"/>
 	</g:form>	
 </div>
