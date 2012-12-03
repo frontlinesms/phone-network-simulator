@@ -49,18 +49,16 @@ class MessageController {
 		if (!messageInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [message(code: 'message.label', default: 'Message'), params.id])
 			redirect(action: "phone")
-			return
+		} else {
+			// get the device that we are deleting from
+			//specify phoneNumber so as to delete the device by phoneNumber
+			def device = MessagingDevice.findByPhoneNumber(params.phoneNumber)
+			
+			// invoke deleteFromDevice on domain object, which returns true if successful
+			if (messageInstance.deleteFromDevice(device)) {
+				flash.message = message(code: 'default.deleted.message', args: [message(code: 'message.label', default: 'Message'), params.id])
+				redirect(action: "phone", params:[phoneNumber:params.phoneNumber])
+			}
 		}
-		
-		// get the device that we are deleting from
-		//specify phoneNumber so as to delete the device by phoneNumber
-		def device = MessagingDevice.findByPhoneNumber(params.phoneNumber)
-		
-		// invoke deleteFromDevice on domain object, which returns true if successful
-		if (messageInstance.deleteFromDevice(device)) {
-			flash.message = message(code: 'default.deleted.message', args: [message(code: 'message.label', default: 'Message'), params.id])
-			redirect(action: "phone", params:[phoneNumber:params.phoneNumber])
-		}
-
 	}
 }
