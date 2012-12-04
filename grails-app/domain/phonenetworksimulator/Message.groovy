@@ -1,4 +1,5 @@
 package phonenetworksimulator
+import phonenetworksimulator.*
 
 class Message {
 
@@ -22,20 +23,22 @@ class Message {
 	
 	
 	def deleteFromDevice(device) {
-	
-	      
-		  if(device.phoneNumber == this.source) { // deleting from sent
+	     
+      if(device.phoneNumber == this.source) {
+            // deleting from sent
 			// update the boolean flag
 			// use this. cause it is an object of message
 			this.deletedAtSource = true 
 			println "Deleting FROM SOURCE" + device.phoneNumber
 			
+		    
 		 }
 		 
 		else if (device.phoneNumber == this.recepient) { // deleting from recipients inbox
 			// update the boolean flag
 			this.deletedAtDestination = true
 			println "Deleting from Destination" + device.phoneNumber
+			
 			
 		}
 		
@@ -44,6 +47,6 @@ class Message {
 			this.delete() // actually delete this object
 		}
 		return true
-	
+	    
 	}
 }

@@ -29,11 +29,14 @@ class MessageController {
 
 	def phone(){
 		if(params.phoneNumber) {
+			//this section renders the messages of a phone device depending on the section specified
 			def phone = MessagingDevice.findByPhoneNumber(params.phoneNumber)
 			return [phoneNumber:phone.phoneNumber, section:params.section ,inboxMessages:phone.inboxMessages, sentMessages:phone.sentMessages, allNumbers:allNumbers()]
 		} else {
 			return [allNumbers:allNumbers()]		
 		}
+		
+		
 	}																												
 
 	private def allNumbers(){
@@ -57,7 +60,7 @@ class MessageController {
 			// invoke deleteFromDevice on domain object, which returns true if successful
 			if (messageInstance.deleteFromDevice(device)) {
 				flash.message = message(code: 'default.deleted.message', args: [message(code: 'message.label', default: 'Message'), params.id])
-				redirect(action: "phone", params:[phoneNumber:params.phoneNumber])
+				redirect(action: "phone", params:[phoneNumber:params.phoneNumber, section:params.section])
 			}
 		}
 	}
