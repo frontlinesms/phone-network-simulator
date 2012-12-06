@@ -621,3 +621,11 @@ font-style: italic;
 	padding:5px;
 }
  
+
+.unread{
+font-weight: bold;
+
+}
+.read{
+font-weight:normal;
+}

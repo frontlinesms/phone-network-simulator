@@ -6,22 +6,27 @@ class Message {
     String recepient
 	String source
 	String text
-	Boolean deletedAtSource =false
-	Boolean deletedAtDestination =false
 	
+	Boolean deletedAtSource = false
+	Boolean deletedAtDestination = false
+	
+	Boolean isRead=false
 	static constraints={
 		recepient(blank:false)
 		source(blank:false)
 		text(blank:false)
-			
+		isRead(nullable:true)
+		deletedAtSource(nullable:true)
+		deletedAtDestination(nullable:true)
 	}
-
+    
 	static mapping = {
 		version false
 	}
 
-	
-	
+
+  
+
 	def deleteFromDevice(device) {
 	     
       if(device.phoneNumber == this.source) {

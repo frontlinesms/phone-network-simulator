@@ -7,25 +7,33 @@ class MessageController {
 	static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 	
 	def index() {
-		redirect(action: "list", params: params)
+		redirect(action: "phone", params: params)
 	}
 	
 	def send() {
 	
 		def messageInstance = new Message(params)
-		
 	 	if(messageInstance.save(flush: true, failOnError:true)){
 		//Create a new messaging device if its Not among the devices
 		[messageInstance.recepient, messageInstance.source].each {
 			def phone = MessagingDevice.findByPhoneNumber(it) ?: new MessagingDevice(phoneNumber:it).save(failOnError:true)
 		}
-		render view:'/message/phone', model:[phoneNumber:params.source, section:'sent',sentMessages:Message.findAllBySource(params.source), allNumbers:allNumbers()]
+		redirect action:'phone', params:[phoneNumber:params.source, section:'sent']
 	}
 	}
+	
 	def list() {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
         [messagingDeviceInstanceList: MessagingDevice.list(params), messagingDeviceInstanceTotal: MessagingDevice.count()]
     }
+    
+   /** def changeMessageStatus(){
+        def messageInstance = new Message(params)
+		  messageInstance.isRead=true
+	 	  messageInstance.save(failOnError:true)
+	 	  redirect action:"phone",params:[phoneNumber:params.recepient,section:'inbox']
+		
+	}*/
 
 	def phone(){
 		if(params.phoneNumber) {
@@ -35,13 +43,12 @@ class MessageController {
 		} else {
 			return [allNumbers:allNumbers()]		
 		}
-		
-		
 	}																												
 
 	private def allNumbers(){
 		return MessagingDevice.findAll()*.phoneNumber
-	}    
+	} 
+	
 
 	def delete() {
 	
@@ -51,7 +58,7 @@ class MessageController {
 		// render error if no message found
 		if (!messageInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [message(code: 'message.label', default: 'Message'), params.id])
-			redirect(action: "phone")
+			redirect(action:"phone")
 		} else {
 			// get the device that we are deleting from
 			//specify phoneNumber so as to delete the device by phoneNumber
