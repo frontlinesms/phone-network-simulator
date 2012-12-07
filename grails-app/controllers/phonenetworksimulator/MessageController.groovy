@@ -10,6 +10,13 @@ class MessageController {
 		redirect(action: "phone", params: params)
 	}
 	
+	def back(){
+	
+	  def messageInstance = Message.get(params.id)
+	  redirect action:'phone', params:[previousSection:params.previousSection, phoneNumber:params.phoneNumber]
+	  
+	}
+	
 	def send() {
 	
 		def messageInstance = new Message(params)
@@ -53,7 +60,7 @@ class MessageController {
 		return MessagingDevice.findAll()*.phoneNumber
 	} 
 	
-
+    
 	def delete() {
 	
 	
