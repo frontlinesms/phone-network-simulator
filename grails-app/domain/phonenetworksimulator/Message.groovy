@@ -9,17 +9,14 @@ class Message {
 	
 	Boolean deletedAtSource = false
 	Boolean deletedAtDestination = false
-	
 	Boolean isRead=false
+	
 	static constraints={
 		recepient(blank:false)
 		source(blank:false)
 		text(blank:false)
-		isRead(nullable:true)
-		deletedAtSource(nullable:true)
-		deletedAtDestination(nullable:true)
-	}
-    
+		
+    }
 	static mapping = {
 		version false
 	}

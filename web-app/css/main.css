@@ -407,6 +407,7 @@ table {
 
 tr {
 	border: 0;
+	background-color: #E1F2B6; 
 }
 
 tr>td:first-child, tr>th:first-child {
@@ -476,7 +477,7 @@ th.desc a {
 }
 
 th:hover, tr:hover {
-	background: #E1F2B6;
+	//background: #E1F2B6;
 }
 
 /* PAGINATION */
@@ -628,4 +629,23 @@ font-weight: bold;
 }
 .read{
 font-weight:normal;
+}
+
+.info{
+		 background-color: #4ea5cd;
+		 border-color: #3b8eb5;
+}
+
+.message h3{
+		 margin: 0 0 5px 0;													 
+}
+
+
+@keyframes animate-bg {
+    from {
+        background-position: 0 0;
+    }
+    to {
+       background-position: -80px 0;
+    }
 }

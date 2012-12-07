@@ -17,9 +17,21 @@ class MessageController {
 		//Create a new messaging device if its Not among the devices
 		[messageInstance.recepient, messageInstance.source].each {
 			def phone = MessagingDevice.findByPhoneNumber(it) ?: new MessagingDevice(phoneNumber:it).save(failOnError:true)
+			flash.message="New Inbox Message " + params.recepient 
 		}
 		redirect action:'phone', params:[phoneNumber:params.source, section:'sent']
+		
 	}
+	}
+	
+	def readMessage(){
+	
+	def messageInstance = Message.get(params.messageId)
+	   messageInstance?.isRead = true
+	   messageInstance?.save()
+	   render view:'/message/phone' , model:[message:messageInstance, previousSection:params.previousSection, phoneNumber:params.phoneNumber, section:'message']
+	
+	
 	}
 	
 	def list() {
@@ -27,14 +39,6 @@ class MessageController {
         [messagingDeviceInstanceList: MessagingDevice.list(params), messagingDeviceInstanceTotal: MessagingDevice.count()]
     }
     
-   /** def changeMessageStatus(){
-        def messageInstance = new Message(params)
-		  messageInstance.isRead=true
-	 	  messageInstance.save(failOnError:true)
-	 	  redirect action:"phone",params:[phoneNumber:params.recepient,section:'inbox']
-		
-	}*/
-
 	def phone(){
 		if(params.phoneNumber) {
 			//this section renders the messages of a phone device depending on the section specified
