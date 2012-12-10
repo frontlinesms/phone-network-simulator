@@ -18,17 +18,23 @@ class MessageController {
 	}
 	
 	def send() {
-	
-		def messageInstance = new Message(params)
-	 	if(messageInstance.save(flush: true, failOnError:true)){
-		//Create a new messaging device if its Not among the devices
-		[messageInstance.recepient, messageInstance.source].each {
-			def phone = MessagingDevice.findByPhoneNumber(it) ?: new MessagingDevice(phoneNumber:it).save(failOnError:true)
-			flash.message="New Inbox Message " + params.recepient 
-		}
+	    
+		def recepients = params.recepient.split(',').collect { it.trim() }
+		recepients.each { recepient ->
+		def messageInstance = new Message(source: params.source, recepient:recepient ,text:params.text)
+	 	   if(messageInstance.save(flush: true, failOnError:true)){
+		   //Create a new messaging device if its Not among the devices
+		   [messageInstance.recepient, messageInstance.source].each {
+	 
+			def phone=MessagingDevice.findByPhoneNumber(it) ?: new MessagingDevice(phoneNumber:it).save(failOnError:true) 
+			
+			
+		 } 
+	   }
+	 }
+	 
 		redirect action:'phone', params:[phoneNumber:params.source, section:'sent']
-		
-	}
+	
 	}
 	
 	def readMessage(){

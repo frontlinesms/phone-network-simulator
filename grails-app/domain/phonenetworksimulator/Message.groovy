@@ -14,7 +14,6 @@ class Message {
 	static constraints={
 		recepient(blank:false)
 		source(blank:false)
-		text(blank:false)
 		
     }
 	static mapping = {
