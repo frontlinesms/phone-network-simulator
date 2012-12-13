@@ -18,7 +18,7 @@ class MessageController {
 	}
 	
 	def send() {
-	    
+	    	println "I was called with the following params::: $params"
 		def recepients = params.recepient.split(',').collect { it.trim() }
 		recepients.each { recepient ->
 		def messageInstance = new Message(source: params.source, recepient:recepient ,text:params.text)

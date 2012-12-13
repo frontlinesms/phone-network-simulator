@@ -4,7 +4,7 @@ class UrlMappings {
 	
 	"/"(controller:"message", action:"phone")
 	  "/modem/$phoneNumber/inbox/unread"(controller:'message',action:'phone' ){}
-	  "/modem/$phoneNumber/send/"(controller:'message', action:'send'){}
+	  "/modem/$source/send/"(controller:'message', action:'send'){}
 	  "/modem/$phoneNumber/inbox/read"(controller:'message',action:'readMessage'){}
 
 	"/$controller/$action?/$id?"{
