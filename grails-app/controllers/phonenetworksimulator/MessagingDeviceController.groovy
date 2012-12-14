@@ -13,14 +13,16 @@ class MessagingDeviceController {
     def list() {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
         [messagingDeviceInstanceList: MessagingDevice.list(params), messagingDeviceInstanceTotal: MessagingDevice.count()]
+    
     }
 
     def create() {
-        [messagingDeviceInstance: new MessagingDevice(params)]
+        [messagingDeviceInstance: new Phone(params)]
+      
     }
 
     def save() {
-        def messagingDeviceInstance = new MessagingDevice(params)
+        def messagingDeviceInstance = new Phone(params)
         if (!messagingDeviceInstance.save(flush: true)) {
             render(view: "create", model: [messagingDeviceInstance: messagingDeviceInstance])
             return
@@ -31,7 +33,7 @@ class MessagingDeviceController {
     }
 
     def show() {
-        def messagingDeviceInstance = MessagingDevice.get(params.id)
+        def messagingDeviceInstance = Phone.get(params.id)
         if (!messagingDeviceInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [message(code: 'messagingDevice.label', default: 'MessagingDevice'), params.id])
             redirect(action: "list")
@@ -42,7 +44,8 @@ class MessagingDeviceController {
     }
 
     def edit() {
-        def messagingDeviceInstance = MessagingDevice.get(params.id)
+        def messagingDeviceInstance = Phone.get(params.id)
+        
         if (!messagingDeviceInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'messagingDevice.label', default: 'MessagingDevice'), params.id])
             redirect(action: "list")
@@ -53,7 +56,7 @@ class MessagingDeviceController {
     }
 
     def update() {
-        def messagingDeviceInstance = MessagingDevice.get(params.id)
+        def messagingDeviceInstance = Phone.get(params.id)
         if (!messagingDeviceInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'messagingDevice.label', default: 'MessagingDevice'), params.id])
             redirect(action: "list")
@@ -83,7 +86,7 @@ class MessagingDeviceController {
     }
 
     def delete() {
-        def messagingDeviceInstance = MessagingDevice.get(params.id)
+        def messagingDeviceInstance = Phone.get(params.id)
         if (!messagingDeviceInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [message(code: 'messagingDevice.label', default: 'MessagingDevice'), params.id])
             redirect(action: "list")

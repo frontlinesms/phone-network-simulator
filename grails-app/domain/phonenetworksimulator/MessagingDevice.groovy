@@ -1,8 +1,9 @@
 package phonenetworksimulator
 import phonenetworksimulator.*
 
-class MessagingDevice {
+abstract class MessagingDevice {
 	String phoneNumber
+	Boolean isModem = false
 
 	
 	static constraints = {

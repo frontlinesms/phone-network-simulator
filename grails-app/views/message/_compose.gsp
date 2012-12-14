@@ -7,5 +7,5 @@
 	<div class="fieldcontain">
 		<g:textArea name="text"/>
 	</div>
-	<g:submitButton value="Send" name="sendButton"/>
+	<g:submitButton value="Send" name="sendButton" />
 </g:form>

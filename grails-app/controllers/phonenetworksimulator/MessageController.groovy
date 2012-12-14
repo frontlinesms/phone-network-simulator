@@ -26,8 +26,8 @@ class MessageController {
 		   //Create a new messaging device if its Not among the devices
 		   [messageInstance.recepient, messageInstance.source].each {
 	 
-			def phone=MessagingDevice.findByPhoneNumber(it) ?: new MessagingDevice(phoneNumber:it).save(failOnError:true) 
-			
+			def phone=Phone.findByPhoneNumber(it) ?: new Phone(phoneNumber:it).save(failOnError:true) 
+		   
 			
 		 } 
 	   }
@@ -55,7 +55,7 @@ class MessageController {
 	def phone(){
 		if(params.phoneNumber) {
 			//this section renders the messages of a phone device depending on the section specified
-			def phone = MessagingDevice.findByPhoneNumber(params.phoneNumber)
+			def phone = Phone.findByPhoneNumber(params.phoneNumber)
 			return [phoneNumber:phone.phoneNumber, section:params.section ,inboxMessages:phone.inboxMessages, sentMessages:phone.sentMessages, allNumbers:allNumbers()]
 		} else {
 			return [allNumbers:allNumbers()]		
@@ -79,7 +79,7 @@ class MessageController {
 		} else {
 			// get the device that we are deleting from
 			//specify phoneNumber so as to delete the device by phoneNumber
-			def device = MessagingDevice.findByPhoneNumber(params.phoneNumber)
+			def device = Phone.findByPhoneNumber(params.phoneNumber)
 			
 			// invoke deleteFromDevice on domain object, which returns true if successful
 			if (messageInstance.deleteFromDevice(device)) {
