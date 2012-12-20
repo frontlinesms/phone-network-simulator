@@ -2,7 +2,7 @@
 <g:form controller="message" action="send">
 	<g:hiddenField name="source" value="${phoneNumber}"/>
 	<div class="fieldcontain">
-		<g:textField name="recepient"/>
+		<g:textField name="recipient"/>
 	</div>
 	<div class="fieldcontain">
 		<g:textArea name="text"/>

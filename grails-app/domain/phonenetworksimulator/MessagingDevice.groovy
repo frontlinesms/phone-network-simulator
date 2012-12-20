@@ -7,12 +7,12 @@ abstract class MessagingDevice {
 
 	
 	static constraints = {
-		phoneNumber(blank:false)
+	 phoneNumber(blank:true)
 	}
 	
 	//Returns the Messages not Deleted in Inbox
 	def getInboxMessages() {
-		Message.findAllByDeletedAtDestinationAndRecepient(false,this.phoneNumber)
+		Message.findAllByDeletedAtDestinationAndRecipient(false,this.phoneNumber)
 		
 	}
 	def getSentMessages() {

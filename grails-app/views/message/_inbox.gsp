@@ -1,5 +1,5 @@
 <h3>Inbox</h3>
-<g:form params="[phoneNumber:phoneNumber, section:'inbox']">
+<g:form params="[phoneNumber:phoneNumber,url:url, section:'inbox']">
 <table>
 <g:if test="${inboxMessages}">
 	<g:each in='${inboxMessages}' var="message">

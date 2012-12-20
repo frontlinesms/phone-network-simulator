@@ -11,22 +11,20 @@ class MessageController {
 	}
 	
 	def back(){
-	
 	  def messageInstance = Message.get(params.id)
 	  redirect action:'phone', params:[previousSection:params.previousSection, phoneNumber:params.phoneNumber]
 	  
 	}
 	
 	def send() {
-	    	println "I was called with the following params::: $params"
-		def recepients = params.recepient.split(',').collect { it.trim() }
-		recepients.each { recepient ->
-		def messageInstance = new Message(source: params.source, recepient:recepient ,text:params.text)
+		def recipients = params.recipient.split(',').collect { it.trim() }
+		recipients.each { recipient ->
+		def messageInstance = new Message(source: params.source, recipient:recipient ,text:params.text)
 	 	   if(messageInstance.save(flush: true, failOnError:true)){
 		   //Create a new messaging device if its Not among the devices
-		   [messageInstance.recepient, messageInstance.source].each {
+		   [messageInstance.recipient, messageInstance.source].each {
 	 
-			def phone=Phone.findByPhoneNumber(it) ?: new Phone(phoneNumber:it).save(failOnError:true) 
+			def phone=MessagingDevice.findByPhoneNumber(it) ?: new Phone(phoneNumber:it).save(failOnError:true) 
 		   
 			
 		 } 
@@ -38,8 +36,7 @@ class MessageController {
 	}
 	
 	def readMessage(){
-	
-	def messageInstance = Message.get(params.messageId)
+	   def messageInstance = Message.get(params.messageId)
 	   messageInstance?.isRead = true
 	   messageInstance?.save()
 	   render view:'/message/phone' , model:[message:messageInstance, previousSection:params.previousSection, phoneNumber:params.phoneNumber, section:'message']
@@ -53,27 +50,28 @@ class MessageController {
     }
     
 	def phone(){
-		if(params.phoneNumber) {
+		    if(params.phoneNumber) {
 			//this section renders the messages of a phone device depending on the section specified
-			def phone = Phone.findByPhoneNumber(params.phoneNumber)
-			return [phoneNumber:phone.phoneNumber, section:params.section ,inboxMessages:phone.inboxMessages, sentMessages:phone.sentMessages, allNumbers:allNumbers()]
-		} else {
-			return [allNumbers:allNumbers()]		
-		}
+			def phone = MessagingDevice.findByPhoneNumber(params.phoneNumber)
+			return [phoneNumber:phone.phoneNumber, section:params.section ,inboxMessages:phone.inboxMessages, sentMessages:phone.sentMessages, allDevices:allDevices()]
+		 } 
+		 
+		else if(params.url) {
+		def modem= Modem.findByUrl(params.url)
+		return[url:modem.url,section:params.section ,inboxMessages:modem.inboxMessages, sentMessages:modem.sentMessages,allDevices:allDevices()]
+		 }
+		else{
+		return[allDevices:allDevices()]
+	   }
 	}																												
 
-	private def allNumbers(){
-		return MessagingDevice.findAll()*.phoneNumber
+	private def allDevices(){
+		return MessagingDevice.getAll();
 	} 
 	
-    
-	def delete() {
-                // def deleteMultiple = {
-                   // message.getAll(params.Id*.toInteger())*. delete (flash:true)
-                   // flash.message = "message${params.Id} deleted"
-                   // redirect (action:list)
-                // }
 	
+	def delete() {
+               
 		def messageIds = [params.id].flatten().collect{ (it.trim() as Long) }
 		println "messageIds value : ${messageIds}"
 		println "messageIds are : ${messageIds.getClass().getName()}"

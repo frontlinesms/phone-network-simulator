@@ -3,7 +3,7 @@ import phonenetworksimulator.*
 
 class Message {
 
-    String recepient
+    String recipient
 	String source
 	String text
 	
@@ -12,7 +12,7 @@ class Message {
 	Boolean isRead=false
 	
 	static constraints={
-		recepient(blank:false)
+		recipient(blank:false)
 		source(blank:false)
 		
     }
@@ -35,7 +35,7 @@ class Message {
 		    
 		 }
 		 
-		else if (device.phoneNumber == this.recepient) { // deleting from recipients inbox
+		else if (device.phoneNumber == this.recipient) { // deleting from recipients inbox
 			// update the boolean flag
 			this.deletedAtDestination = true
 			println "Deleting from Destination" + device.phoneNumber
