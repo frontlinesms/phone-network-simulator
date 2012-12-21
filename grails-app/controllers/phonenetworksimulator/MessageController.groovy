@@ -24,8 +24,9 @@ class MessageController {
 		   //Create a new messaging device if its Not among the devices
 		   [messageInstance.recipient, messageInstance.source].each {
 	 
-			def phone=MessagingDevice.findByPhoneNumber(it) ?: new Phone(phoneNumber:it).save(failOnError:true) 
-		   
+			def device=MessagingDevice.findByPhoneNumber(it) ?: new Phone(phoneNumber:it).save(failOnError:true) 
+		    if (device instanceof Modem)
+		    	device.doSend(params.text, params.source)
 			
 		 } 
 	   }
