@@ -26,7 +26,7 @@ class MessageController {
 		   //Create a new messaging device if its Not among the devices
 		   [messageInstance.recepient, messageInstance.source].each {
 	 
-			def phone=MessagingDevice.findByPhoneNumber(it) ?: new MessagingDevice(phoneNumber:it).save(failOnError:true) 
+			def phone=MessagingDevice.findByPhoneNumber(it) ?: new Phone(phoneNumber:it).save(failOnError:true) 
 			
 			
 		 } 
@@ -68,8 +68,6 @@ class MessageController {
 	
     
 	def delete() {
-	
-	
 		def messageInstance = Message.get(params.id)
 		
 		// render error if no message found
