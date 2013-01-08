@@ -6,11 +6,11 @@
 		<g:else>
 			<div>
 		</g:else>
-			<g:link controller="message" action="phone" params="${[phoneNumber:number]}">${number}</g:link>
+			<g:link controller="message" action="device" params="${[phoneNumber:number]}">${number}</g:link>
 		</div>	
 	</g:each>
-	<g:form controller="phone" action="save" >
+	<g:form controller="device" action="save" >
 		<g:textField name="phoneNumber" value = "${phoneInstance?.phoneNumber}" />
-		<g:submitButton value="Add Phone" name="addButton"/>
+		<g:submitButton value="Add Device" name="addButton"/>
 	</g:form>	
 </div>
