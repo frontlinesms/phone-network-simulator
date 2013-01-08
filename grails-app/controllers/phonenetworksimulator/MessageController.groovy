@@ -27,14 +27,6 @@ class MessageController {
         [messagingDeviceInstanceList: MessagingDevice.list(params), messagingDeviceInstanceTotal: MessagingDevice.count()]
     }
     
-   /** def changeMessageStatus(){
-        def messageInstance = new Message(params)
-		  messageInstance.isRead=true
-	 	  messageInstance.save(failOnError:true)
-	 	  redirect action:"phone",params:[phoneNumber:params.recepient,section:'inbox']
-		
-	}*/
-
 	def phone(){
 		if(params.phoneNumber) {
 			//this section renders the messages of a phone device depending on the section specified
@@ -51,36 +43,31 @@ class MessageController {
 	
 
 	def delete() {
-                // def deleteMultiple = {
-                   // message.getAll(params.Id*.toInteger())*. delete (flash:true)
-                   // flash.message = "message${params.Id} deleted"
-                   // redirect (action:list)
-                // }
-	
 		def messageIds = [params.id].flatten().collect{ (it.trim() as Long) }
 		println "messageIds value : ${messageIds}"
 		println "messageIds are : ${messageIds.getClass().getName()}"
-
-		def messageInstance
+	
 		def flashMessages = ""
-		messageIds.each { messageId->
-			messageInstance = Message.get(messageId)
+		def messagesToDelete = (messageIds.collect{ Message.get(it) } - null)
+		messagesToDelete.each { messageInstance->
 
 			// render error if no message found
 			if (!messageInstance) {
-				flashMessages += message(code: 'default.not.found.message', args: [message(code: 'message.label', default: 'Message'), messageInstance.id]) + ","
+				flashMessages += message(code: 'default.not.found.message', args: [message(code: 'message.label', default: 'Messages'), messageInstance.id])+ ","
 			} else {
 				// get the device that we are deleting from
-				//specify phoneNumber so as to delete the device by phoneNumber
+				//specify phoneNumber so as to delete the device by phoneNumbers
 				def device = MessagingDevice.findByPhoneNumber(params.phoneNumber)
 				
 				// invoke deleteFromDevice on domain object, which returns true if successful
-				if (messageInstance.deleteFromDevice(device)) {
-					flashMessages += message(code: 'default.deleted.message', args: [message(code: 'message.label', default: 'Message'), messageInstance.id]) + ","
-				}
+				messageInstance.deleteFromDevice(device)
 			}
 		}
+		
+		flashMessages = message(code: 'default.deleted.message', args: [messagesToDelete.size() , message(code: 'message.label', default: 'Messages')])
 		flash.message = flashMessages
 		redirect(action: "phone", params:[phoneNumber:params.phoneNumber, section:params.section])
 	}
 }
+
+

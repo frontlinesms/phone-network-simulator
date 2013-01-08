@@ -3,7 +3,7 @@ import phonenetworksimulator.*
 
 class Message {
 
-    String recepient
+  String recepient
 	String source
 	String text
 	
